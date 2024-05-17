@@ -14,10 +14,9 @@ const db = mysql.createConnection({
 })
 
 app.post('/create', (req, res) => {
-    const user_name = req.body.user_name;
-    const email = req.body.email;
+    const { user_name, email, password } = req.body;
 
-    db.query('INSERT INTO employees(user_name, email) VALUES(?,?)', [user_name, email], (err, result) => {
+    db.query('INSERT INTO employees(user_name, email, password) VALUES(?,?,?)', [user_name, email, password], (err, result) => {
         if(err){
             console.log(err);
         } else {
@@ -26,23 +25,56 @@ app.post('/create', (req, res) => {
     })
 })
 
-app.get('/employees', (req, res) => {
-    // const user_name = req.body.user_name;
-    // const email = req.body.email;
+app.post('/crte_bill', (req, res) => {
+    const { user_name, reference, amount, full_payment, emplo_id } = req.body;
 
+    db.query('INSERT INTO bills_employees(user_name, reference, amount, full_payment, emplo_id) VALUES(?,?,?,?,?)', [user_name, reference, amount, full_payment, emplo_id], (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })
+})
+
+app.get('/bills', (req, res) => {
+    db.query('SELECT * FROM bills_employees', (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })  
+})
+
+app.post('/login', (req, res) => {
+    const { user_name, password } = req.body;
+
+    db.query('SELECT * FROM employees WHERE user_name=? AND password=?', [user_name, password], (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send({
+                "id": result[0].id,
+                "user_name": result[0].user_name,
+                "email": result[0].email,
+            });
+        }
+    })
+})
+
+app.get('/employees', (req, res) => {
     db.query('SELECT * FROM employees', (err, result) => {
         if(err){
             console.log(err);
         } else {
             res.send(result);
         }
-    })
+    })  
 })
 
 app.put('/update', (req, res) => {
-    const id = req.body.id;
-    const user_name = req.body.user_name;
-    const email = req.body.email;
+    const { id, user_name, email } = req.body;
 
     db.query('UPDATE employees SET user_name=?, email=? WHERE id=?', [user_name, email, id], (err, result) => {
         if(err){
