@@ -1,0 +1,28 @@
+.cont_info_user {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.img_user {
+    width: 250px;
+    margin: auto;
+}
+
+.card-title {
+    text-align: center;
+}
+
+.card_info_user {
+    border: none;
+}
+
+.cardbody_info_user {
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgb(37, 37, 37);
+}
+
+.container_btns {
+    text-align: center;
+}

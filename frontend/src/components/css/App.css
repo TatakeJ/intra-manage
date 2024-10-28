@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'MiFuentePersonalizada';
+    src: url('../../fonts/Poppins-ExtraLight.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'MiFuentePersonalizada', sans-serif;
+}

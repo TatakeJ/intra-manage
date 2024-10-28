@@ -2,3 +2,44 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.link_back svg{
+    text-decoration: none;
+    color: #343a40;
+    height: 30px;
+    width: 30px;
+}
+
+.title_emplo {
+    text-align: center;
+    padding: 0px 0 20px 0;
+}
+
+.table_users {
+    box-shadow: 0 0 3px rgb(53, 53, 53);
+}
+.table_users thead{
+    border-bottom: solid 1px rgb(0, 0, 0);
+    background-color: #d9d9d9;
+}
+
+.table_users tbody tr{
+    border-bottom: solid 1px black;
+    background-color: #d9d9d9;
+}
+
+a {
+    text-decoration: none;
+}
+
+.active-link {
+    color: rgb(0, 197, 0);
+}
+
+.inactive-link {
+    color: red;
+}
+
+.btns_actions {
+    text-align: center;
+}

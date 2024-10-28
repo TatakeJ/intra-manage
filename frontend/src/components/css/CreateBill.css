@@ -1,0 +1,49 @@
+.cont_link_back{
+    text-align: left;
+}
+.cont_create_bill {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: #010027;
+}
+
+.card_crt_bill{
+    width: 38vh;
+}
+
+.card_header_crt_bill{
+    text-align: center;
+    border: none;
+    background-color: #d9d9d9;
+}
+
+.card_body_crt_bill{
+    background-color: #d9d9d9;
+}
+
+.cont_inp_bill{
+    margin: 30px 0 30px 0;
+}
+
+.cont_inp_bill input{
+    width: 200px;
+    margin: auto;
+}
+
+.btn_crt_bill{
+    background-color: #010027;
+    border: none;
+    border-radius: 100%;
+}
+
+.cont_btn_crt_bill{
+    text-align: right;
+}
+
+.btn_crt_bill svg{
+    height: 40px;
+    width: 30px;
+}

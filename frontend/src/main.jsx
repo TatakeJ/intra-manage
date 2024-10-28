@@ -9,8 +9,8 @@ import { TableEmployees } from './components/Admin/TableEmployees.jsx'
 import { AdminEditEmplo } from './components/Admin/AdminEditEmplo.jsx'
 import { InfoUser } from './components/Usuario/InfoUser.jsx'
 import { Login } from './components/Login.jsx'
-import { RegistUser } from './components/Usuario/RegistUser.jsx'
 import { CreateBill } from './components/Admin/CreateBill.jsx'
+import { InfoBills } from './components/Usuario/InfoBills.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,10 +20,6 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <Home/>,
-  },
-  {
-    path: "/user_register",
-    element: <RegistUser/>,
   },
   {
     path: "/admnin_register",
@@ -38,11 +34,15 @@ const router = createBrowserRouter([
     element: <CreateBill/>,
   },
   {
+    path: "/bill/:emplo_id",
+    element: <InfoBills/>,
+  },
+  {
     path: "/edit/:id",
     element: <AdminEditEmplo/>,
   },
   {
-    path: "/usuario/:id",
+    path: "/user/:id",
     element: <InfoUser/>,
   },
 ]);

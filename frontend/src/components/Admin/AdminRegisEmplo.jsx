@@ -2,7 +2,11 @@ import React from 'react'
 import {useState} from 'react'
 import Axios from 'axios' 
 import Swal from 'sweetalert2'
-import '../css/Employee.css'
+import { TbArrowBackUp } from "react-icons/tb";
+import { FaUser } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import '../css/RegisEmplo.css'
 
 export const AdminRegisEmplo = () => {
 
@@ -11,27 +15,36 @@ export const AdminRegisEmplo = () => {
   const [password, setPassword] = useState("");
 
   const add = () => {
-    Axios.post('http://localhost:3001/create', {
-      user_name:user_name,
-      email:email,
-      password:password
-    }).then(() =>{
-      cleanInputs();
-      Swal.fire({
-        title: "<strong>Empleado registrado</strong>",
-        html: `<i>El empleado ${user_name}  fue registrado exitosamente</i>`,
-        icon: "success",
-        showConfirmButton: false,
-        timer: 3000
-      })
-    }).catch(function (error) {
+    if(user_name === "" || email === "" || password === ""){
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "No fue posible agregar el empleado!",
-        footer: JSON.parse(JSON.stringify(error)).message==="Network Error"?"Intente mas tarde":JSON.parse(JSON.stringify(error))
+        text: "No fue posible agregar el empleado!, completa todos los campos",
       });
-    })
+    } else {
+      Axios.post('http://localhost:3001/create', {
+        user_name:user_name,
+        email:email,
+        password:password,
+        state: "activo"
+      }).then(() =>{
+        Swal.fire({
+          title: "<strong>Empleado registrado</strong>",
+          html: `<i>El empleado ${user_name}  fue registrado exitosamente</i>`,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000
+        })
+        cleanInputs();
+      }).catch(function (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No fue posible agregar el empleado!",
+          footer: JSON.parse(JSON.stringify(error)).message==="Network Error"?"Intente mas tarde":JSON.parse(JSON.stringify(error))
+        });
+      })
+    }
   }
 
   const cleanInputs = () => {
@@ -41,40 +54,45 @@ export const AdminRegisEmplo = () => {
   }
 
   return (
-    <div className='container'>
-      <div className="card text-center">
-        <div className="card-header">
-          Registro
+    <>
+    <div>
+      <a className='link_back' href="/home"><TbArrowBackUp /></a>
+    </div>
+    <div className='cont_reg_user'>
+      <div className="card_reg_user card text-center">
+        <div className="card_header_reg_user card-header">
+          Registro Usuario
         </div>
         <div className="card-body">
           <form>
-            <div className="input-group mb-3">
-              <span className="input-group-text" id="basic-addon1">User Name:</span>
+            <div className="inp_reg_user input-group mb-3">
+              <span className="input-group-text" id="basic-addon1"><FaUser /></span>
               <input onChange={(event) => {
                 setUser_name(event.target.value)
               }}
-              type="text" value={user_name} className="form-control" placeholder="Ingresa tu nombre" aria-label="Username" aria-describedby="basic-addon1" required/>
+              type="text" value={user_name} className="form-control" placeholder="Nombre usuario" aria-label="Username" aria-describedby="basic-addon1" required/>
             </div>
-            <div className="input-group mb-3">
-              <span className="input-group-text" id="basic-addon1">Email:</span>
+            <div className="inp_reg_user input-group mb-3">
+              <span className="input-group-text" id="basic-addon1"><MdEmail /></span>
               <input onChange={(event) => {
                 setEmail(event.target.value)
               }}
-              type="email" value={email} className="form-control" placeholder="Ingresa tu email" aria-label="Email" aria-describedby="basic-addon1"/>
+              type="email" value={email} className="form-control" placeholder="Correo" aria-label="Email" aria-describedby="basic-addon1" required/>
             </div>
-            <div className="input-group mb-3">
-              <span className="input-group-text" id="basic-addon1">Password:</span>
+            <div className="inp_reg_user input-group mb-3">
+              <span className="input-group-text" id="basic-addon1"><RiLockPasswordFill /></span>
               <input onChange={(event) => {
                 setPassword(event.target.value)
               }}
-              type="password" value={password} className="form-control" placeholder="Ingresa tu contraseña" aria-label="Password" aria-describedby="basic-addon1"/>
+              type="password" value={password} className="form-control" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" required/>
             </div>
-            <div className="text-body-secondary">
-                <button type="submit" className="btn btn-primary" onClick={add}>Registrar</button>
+            <div className="cont_btn_reg_user text-body-secondary">
+                <button type="submit" className="btn_reg_user btn btn-primary" onClick={add}>Registrar</button>
             </div>
           </form>
         </div>
       </div>
     </div>
+    </>
   )
 }

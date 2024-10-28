@@ -1,0 +1,45 @@
+.link_back svg{
+    text-decoration: none;
+    color: #343a40;
+    height: 30px;
+    width: 30px;
+}
+
+.cont_reg_user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card_reg_user {
+    /* height: 400px; */
+    background-color: #d9d9d9;
+    border: none;
+}
+
+.card_header_reg_user {
+    padding-top: 24px;
+    background-color: #d9d9d9;
+    border: none;
+}
+
+.inp_reg_user {
+    height: 55px;
+}
+
+.inp_reg_user span svg {
+    height: 30px;
+    width: 30px;
+}
+
+.cont_btn_reg_user {
+    padding: 20px 0 20px 0;
+}
+
+.btn_reg_user {
+    border: none;
+    border-radius: 0;
+    background-color: #262626;
+    box-shadow: 0px 1px 8px black;  
+}

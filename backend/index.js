@@ -13,40 +13,7 @@ const db = mysql.createConnection({
     database: 'intramanagewebdb'
 })
 
-app.post('/create', (req, res) => {
-    const { user_name, email, password } = req.body;
-
-    db.query('INSERT INTO employees(user_name, email, password) VALUES(?,?,?)', [user_name, email, password], (err, result) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-    })
-})
-
-app.post('/crte_bill', (req, res) => {
-    const { user_name, reference, amount, full_payment, emplo_id } = req.body;
-
-    db.query('INSERT INTO bills_employees(user_name, reference, amount, full_payment, emplo_id) VALUES(?,?,?,?,?)', [user_name, reference, amount, full_payment, emplo_id], (err, result) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-    })
-})
-
-app.get('/bills', (req, res) => {
-    db.query('SELECT * FROM bills_employees', (err, result) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-    })  
-})
-
+//empleados
 app.post('/login', (req, res) => {
     const { user_name, password } = req.body;
 
@@ -59,6 +26,18 @@ app.post('/login', (req, res) => {
                 "user_name": result[0].user_name,
                 "email": result[0].email,
             });
+        }
+    })
+})
+
+app.post('/create', (req, res) => {
+    const { user_name, email, password, state } = req.body;
+
+    db.query('INSERT INTO employees(user_name, email, password, state) VALUES(?,?,?,?)', [user_name, email, password, state], (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send(result);
         }
     })
 })
@@ -85,16 +64,52 @@ app.put('/update', (req, res) => {
     })
 })
 
-app.delete('/delete/:id', (req, res) => {
-    const id = req.params.id;
+//cambiar estado empleado
+app.put('/update_state_InA', (req, res) => {
+    const { id, state } = req.body;
 
-    db.query('DELETE FROM employees WHERE id=?', id, (err, result) => {
+    db.query('UPDATE employees SET state=? WHERE id=?', [state, id], (err, result) => {
         if(err){
             console.log(err);
         } else {
             res.send(result);
         }
     })
+})
+
+app.put('/update_state_A', (req, res) => {
+    const { id, state } = req.body;
+
+    db.query('UPDATE employees SET state=? WHERE id=?', [state, id], (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })
+})
+
+//Bills
+app.post('/crte_bill', (req, res) => {
+    const { user_name, reference, amount, full_payment, emplo_id } = req.body;
+
+    db.query('INSERT INTO bills_employees(user_name, reference, amount, full_payment, emplo_id) VALUES(?,?,?,?,?)', [user_name, reference, amount, full_payment, emplo_id], (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })
+})
+
+app.get('/bills', (req, res) => {
+    db.query('SELECT * FROM bills_employees', (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })  
 })
 
 app.listen(3001, () => {
