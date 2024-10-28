@@ -34,8 +34,9 @@ export const AdminRegisEmplo = () => {
           icon: "success",
           showConfirmButton: false,
           timer: 3000
+        }).then(() => {
+          cleanInputs();
         })
-        cleanInputs();
       }).catch(function (error) {
         Swal.fire({
           icon: "error",
