@@ -9,8 +9,13 @@ import { TableEmployees } from './components/Admin/TableEmployees.jsx'
 import { AdminEditEmplo } from './components/Admin/AdminEditEmplo.jsx'
 import { InfoUser } from './components/Usuario/InfoUser.jsx'
 import { Login } from './components/Login.jsx'
+<<<<<<< HEAD
 import { CreateBill } from './components/Admin/CreateBill.jsx'
 import { InfoBills } from './components/Usuario/InfoBills.jsx'
+=======
+import { RegistUser } from './components/Usuario/RegistUser.jsx'
+import { CreateBill } from './components/Admin/CreateBill.jsx'
+>>>>>>> d1571dceeef869ca1ae791ee4be2a8a22e99cfde
 
 const router = createBrowserRouter([
   {
@@ -20,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <Home/>,
+  },
+  {
+    path: "/user_register",
+    element: <RegistUser/>,
   },
   {
     path: "/admnin_register",
@@ -34,15 +43,22 @@ const router = createBrowserRouter([
     element: <CreateBill/>,
   },
   {
+<<<<<<< HEAD
     path: "/bill/:emplo_id",
     element: <InfoBills/>,
   },
   {
+=======
+>>>>>>> d1571dceeef869ca1ae791ee4be2a8a22e99cfde
     path: "/edit/:id",
     element: <AdminEditEmplo/>,
   },
   {
+<<<<<<< HEAD
     path: "/user/:id",
+=======
+    path: "/usuario/:id",
+>>>>>>> d1571dceeef869ca1ae791ee4be2a8a22e99cfde
     element: <InfoUser/>,
   },
 ]);
