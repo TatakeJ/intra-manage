@@ -3,21 +3,17 @@ import {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios' 
 import Swal from 'sweetalert2'
-<<<<<<< HEAD
 import { FaEdit  } from "react-icons/fa";
 import { TbArrowBackUp } from "react-icons/tb";
 import img_user from '../imgs/user-icon.png';
 import '../css/InfoUser.css'
-=======
 import '../css/Employee.css'
->>>>>>> d1571dceeef869ca1ae791ee4be2a8a22e99cfde
 
 export const InfoUser = () => {
 
     const { id } = useParams();
     const [employeesList, setEmployees] = useState([]);
-
-<<<<<<< HEAD
+    
     const updateStateInactive = (val) => {
         Swal.fire({
             title: "<strong>Advertencia</strong>",
@@ -83,8 +79,6 @@ export const InfoUser = () => {
         })
     }
 
-=======
->>>>>>> d1571dceeef869ca1ae791ee4be2a8a22e99cfde
     useEffect(() => {
         Axios.get('http://localhost:3001/employees').then((response) => {
         setEmployees(response.data);
@@ -92,7 +86,6 @@ export const InfoUser = () => {
     }, []);
 
     return (
-<<<<<<< HEAD
         <>
         <div>
             <a className='link_back' href="/table_employees"><TbArrowBackUp /></a>
@@ -128,30 +121,14 @@ export const InfoUser = () => {
                                     )}
                                 </div>
                             </div>
-=======
-        <div>
-        {
-        employeesList.map((val, key) => {
-                if(val.id == id){
-                    return (
-                        <>
-                        <p>ID: {val.id}</p>
-                        <p>User Name: {val.user_name}</p>
-                        <p>Email: {val.email}</p>
->>>>>>> d1571dceeef869ca1ae791ee4be2a8a22e99cfde
                         </>
                     )
                 }
+            })
             }
-<<<<<<< HEAD
-            )}
             </div>
         </div>
         </>
-=======
-        )
-        }
-        </div>
->>>>>>> d1571dceeef869ca1ae791ee4be2a8a22e99cfde
     )
 }
+

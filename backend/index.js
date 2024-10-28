@@ -13,7 +13,6 @@ const db = mysql.createConnection({
     database: 'intramanagewebdb'
 })
 
-<<<<<<< HEAD
 //empleados
 app.post('/login', (req, res) => {
     const { user_name, password } = req.body;
@@ -35,12 +34,6 @@ app.post('/create', (req, res) => {
     const { user_name, email, password, state } = req.body;
 
     db.query('INSERT INTO employees(user_name, email, password, state) VALUES(?,?,?,?)', [user_name, email, password, state], (err, result) => {
-=======
-app.post('/create', (req, res) => {
-    const { user_name, email, password } = req.body;
-
-    db.query('INSERT INTO employees(user_name, email, password) VALUES(?,?,?)', [user_name, email, password], (err, result) => {
->>>>>>> d1571dceeef869ca1ae791ee4be2a8a22e99cfde
         if(err){
             console.log(err);
         } else {
@@ -49,47 +42,6 @@ app.post('/create', (req, res) => {
     })
 })
 
-<<<<<<< HEAD
-=======
-app.post('/crte_bill', (req, res) => {
-    const { user_name, reference, amount, full_payment, emplo_id } = req.body;
-
-    db.query('INSERT INTO bills_employees(user_name, reference, amount, full_payment, emplo_id) VALUES(?,?,?,?,?)', [user_name, reference, amount, full_payment, emplo_id], (err, result) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-    })
-})
-
-app.get('/bills', (req, res) => {
-    db.query('SELECT * FROM bills_employees', (err, result) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-    })  
-})
-
-app.post('/login', (req, res) => {
-    const { user_name, password } = req.body;
-
-    db.query('SELECT * FROM employees WHERE user_name=? AND password=?', [user_name, password], (err, result) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.send({
-                "id": result[0].id,
-                "user_name": result[0].user_name,
-                "email": result[0].email,
-            });
-        }
-    })
-})
-
->>>>>>> d1571dceeef869ca1ae791ee4be2a8a22e99cfde
 app.get('/employees', (req, res) => {
     db.query('SELECT * FROM employees', (err, result) => {
         if(err){
