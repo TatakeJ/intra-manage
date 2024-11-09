@@ -124,6 +124,18 @@ app.get('/bills', (req, res) => {
     })  
 })
 
+app.get('/bills/:emplo_id', (req, res) => {
+    const { emplo_id } = req.params;
+    
+    db.query('SELECT * FROM bills_employees WHERE emplo_id=?', [emplo_id], (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })  
+})
+
 app.listen(3001, () => {
     console.log('listening');
 })

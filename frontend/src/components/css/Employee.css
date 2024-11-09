@@ -3,6 +3,10 @@
     margin-bottom: 20px;
 }
 
+/* .link_back {
+    position: fixed;
+} */
+
 .link_back svg{
     text-decoration: none;
     color: #343a40;
