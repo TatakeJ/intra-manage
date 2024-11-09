@@ -1,5 +1,23 @@
 .cont_edit_emplo {
-    height: 100vh;
     display: flex;
+    justify-content: center;
     align-items: center;
+    height: 100vh;
+}
+
+.card_edit_emplo {
+    background-color: #d9d9d9;
+    border: none;
+}
+
+.card_header_edit_emplo{
+    padding-top: 24px;
+    background-color: #d9d9d9;
+    border: none;
+}
+
+.card_footer_edit_emplo{
+    padding-bottom: 24px;
+    background-color: #d9d9d9;
+    border: none;
 }

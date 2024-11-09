@@ -14,12 +14,28 @@ export const CreateBill = () => {
   const [reference, setReference] = useState("");
   const [amount, setAmount] = useState(0);
   const [payment, setPayment] = useState(0);
-  const [employeesList, setEmployees] = useState([]);
+  const [employeesList, setEmployee] = useState([]);
 
   useEffect(() => {
-      Axios.get('http://localhost:3001/employees').then((response) => {
-      setEmployees(response.data);
-      });
+      // Axios.get('http://localhost:3001/employees').then((response) => {
+      // setEmployees(response.data);
+      // });
+    const fetchEmployee = async () => {
+      try {
+          const response = await Axios.get(`http://localhost:3001/employees/${emplo_id}`);
+          setEmployee(response.data);
+          setUser_name(response.data[0].user_name);
+      } catch (error) {
+          console.error("Error fetching employee data:", error);
+          Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No fue posible cargar los datos del empleado!",
+          footer: error.message
+          });
+      }
+    };
+    fetchEmployee();
   }, []);
 
   const addBill = () => {
@@ -73,24 +89,17 @@ export const CreateBill = () => {
           </div>
           <div className="card_body_crt_bill card-body">
           <form>
-            {
-              employeesList.map((val, key) => {
-                if(val.id == emplo_id){
-                  return (
-                    <>
-                    <div className="cont_inp_bill">
-                        <span className="label_form_bill" id="basic-addon1">Nombre:</span>
-                        <input onChange={(event) => {
-                          setUser_name(event.target.value)
-                        }}
-                        type="text" value={user_name} className="form-control" placeholder="Ingresa tu nombre" aria-label="Username" aria-describedby="basic-addon1" required/>
-                      </div>
-                    </>
-                  )}})}
+              <div className="cont_inp_bill">
+                  <span className="label_form_bill" id="basic-addon1">Nombre:</span>
+                  <input onChange={(e) => {
+                    setUser_name(e.target.value)
+                  }}
+                  type="text" value={user_name} className="form-control" placeholder="Ingresa tu nombre" aria-label="Username" aria-describedby="basic-addon1" required/>
+                </div>
                 <div className="cont_inp_bill">
                   <span className="label_form_bill" id="basic-addon1">Referencia:</span>
-                  <input onChange={(event) => {
-                    setReference(event.target.value)
+                  <input onChange={(e) => {
+                    setReference(e.target.value)
                   }}
                   type="text" value={reference} className="form-control" placeholder="Ingresa " aria-label="Reference" aria-describedby="basic-addon1"/>
                 </div>

@@ -11,19 +11,34 @@ import '../css/Employee.css'
 export const TableEmployees = () => {
 
     const [employeesList, setEmployees] = useState([]);
-    const [filter_users, setFilterUsers] = useState([]);
+    const [billsList, setBills] = useState([]);
+    const [filter_employees, setFilteredEmployees] = useState([]);
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/employees').then((response) => {
-        setEmployees(response.data);
-        setFilterUsers(response.data);
-        });
+        const fetchData = async () => {
+            try {
+                const [employeesResponse, billsResponse] = await Promise.all([
+                Axios.get('http://localhost:3001/employees'),
+                Axios.get('http://localhost:3001/bills')
+                ])
+                setEmployees(employeesResponse.data)
+                setFilteredEmployees(employeesResponse.data)
+                setBills(billsResponse.data)
+            } catch (error) {
+                console.error('Error fetching data:', error)
+            }
+        }
+        fetchData()
     }, []);
 
     //filtro
     const filterEmployees = (e) => {
         const filter = e.target.value;
-        setFilterUsers(employeesList.filter(employee => employee.user_name.includes(filter)));
+        setFilteredEmployees(employeesList.filter(employee => employee.user_name.includes(filter)));
+    }
+
+    const hasBill = (employeeId) => {
+        return billsList.some(bill => bill.emplo_id === employeeId)
     }
 
     return (
@@ -48,25 +63,26 @@ export const TableEmployees = () => {
                     </thead>
                     <tbody>
                     {
-                    filter_users.map((val, key) => {
-                        var infoUser = "http://localhost:5173/user/" + val.id;
-                        var createBill = "http://localhost:5173/create_bill/" + val.id;
-                        var infoBill = "http://localhost:5173/bill/" + val.id;
-                        var isActive = val.state === "activo";
+                    filter_employees.map((employee) => {
+                        var isActive = employee.state === "activo";
                         return (
-                        <tr key={val.id}>
-                            <th scope="row">{val.id}</th>
+                        <tr key={employee.id}>
+                            <th scope="row">{employee.id}</th>
                             <td>
-                                <a className={isActive ? 'active-link' : 'inactive-link'} href={infoUser}>{val.user_name}</a>
+                                <a className={isActive ? 'active-link' : 'inactive-link'} href={`http://localhost:5173/user/${employee.id}`}>{employee.user_name}</a>
                             </td>
                             <td className="btns_actions">
                                 <div className="btns_actions btn-group" role="group">
-                                    {val.state === "activo" && (
+                                    {employee.state === "activo" && (
                                         <>
-                                            <a href={createBill} type="button" className="btn btn-warning" id='enlaceDinamico'><MdOutlineCreateNewFolder /></a>
+                                            <a href={`http://localhost:5173/create_bill/${employee.id}`} type="button" className="btn btn-warning" id='enlaceDinamico'><MdOutlineCreateNewFolder /></a>
                                         </>
                                     )}
-                                    <a href={infoBill} type="button" className="btn btn-info" id='enlaceDinamico'><FaEye /></a>
+                                    {
+                                        hasBill(employee.id) && (
+                                            <a href={`http://localhost:5173/bill/${employee.id}`} type="button" className="btn btn-info" id='enlaceDinamico'><FaEye /></a>
+                                        )
+                                    }
                                 </div>  
                             </td>
                         </tr>
